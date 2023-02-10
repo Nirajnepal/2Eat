@@ -1,56 +1,28 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import LoginPage from './src/components/login';
-import RegisterPage from './src/components/register';
+import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import React from "react";
+import { RestaurantScreen } from "./src/features/restaurants/screens/restaurant.screen";
+import {
+  useFonts as useOswald,
+  Oswald_400Regular,
+} from "@expo-google-fonts/oswald";
+import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
-const App = () => {
-  const [showLogin, setShowLogin] = React.useState(true);
+export default function App() {
+  const [oswaldLoaded] = useOswald({
+    Oswald_400Regular,
+  });
 
-  const handleLoginPress = () => setShowLogin(true);
-  const handleRegisterPress = () => setShowLogin(false);
+  const [latoLoaded] = useLato({
+    Lato_400Regular,
+  });
 
+  if (!oswaldLoaded || !latoLoaded) {
+    return null;
+  }
   return (
-    <View style={styles.container}>
-      {showLogin ? (
-        <LoginPage />
-      ) : (
-        <RegisterPage />
-      )}
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button} onPress={handleLoginPress}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={handleRegisterPress}>
-          <Text style={styles.buttonText}>Register</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <>
+      <RestaurantScreen />
+      <ExpoStatusBar style="auto" />
+    </>
   );
-};
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  buttonContainer: {
-    flexDirection: 'row',
-    // marginTop: 60,
-    marginBottom: 50,
-  },
-  button: {
-    backgroundColor: '#9C27B0',
-    padding: 10,
-    borderRadius: 5,
-    marginHorizontal: 10,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold',
-  },
-});
-
-
-export default App;
+}

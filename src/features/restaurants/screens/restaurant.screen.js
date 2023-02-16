@@ -18,27 +18,27 @@ export const RestaurantScreen = () => {
 
       <FlatList
         data={[
-          { name: 1 },
-          { name: 2 },
-          { name: 3 },
-          { name: 4 },
-          { name: 5 },
-          { name: 6 },
-          { name: 7 },
-          { name: 8 },
-          { name: 9 },
-          { name: 10 },
-          { name: 11 },
-          { name: 12 },
-          { name: 13 },
-          { name: 14 },
+          { name: 1, key: "1" },
+          { name: 2, key: "2" },
+          { name: 3, key: "3" },
+          { name: 4, key: "4" },
+          { name: 5, key: "5" },
+          { name: 6, key: "6" },
+          { name: 7, key: "7" },
+          { name: 8, key: "8" },
+          { name: 9, key: "9" },
+          { name: 10, key: "10" },
+          { name: 11, key: "11" },
+          { name: 12, key: "12" },
+          { name: 13, key: "13" },
+          { name: 14, key: "14" },
         ]}
-        renderItem={() => (
-          <View style={styles.listItem}>
+        renderItem={({ item }) => (
+          <View style={styles.listItem} key={item.key}>
             <RestaurantInfoCard />
           </View>
         )}
-        keyExtractor={(item) => item.name}
+        keyExtractor={(item) => item.key}
         contentContainerStyle={{ padding: 16 }}
       />
     </SafeAreaView>

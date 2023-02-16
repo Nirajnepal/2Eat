@@ -26,12 +26,17 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
         <Text style={styles.title}>{name}</Text>
         <View style={styles.restaurantInfo}>
           <View style={styles.rating}>
-            {ratingArray.map(() => (
-              <SvgXml xml={star} width={20} height={20} />
+            {ratingArray.map((_, index) => (
+              <SvgXml
+                xml={star}
+                width={20}
+                height={20}
+                key={index.toString()}
+              />
             ))}
           </View>
           <View style={styles.restaurantInfoStatus}>
-          {isClosedTemporarily && (
+            {isClosedTemporarily && (
               // eslint-disable-next-line react-native/no-inline-styles
               <Text variant="label" style={{ color: "red" }}>
                 CLOSED TEMPORARILY

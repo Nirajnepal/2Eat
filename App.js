@@ -14,6 +14,21 @@ import { Ionicons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 
+const tabIcon = {
+  Restaurants: "md-restaurant",
+  Settings: "md-settings",
+  Map: "md-map",
+};
+
+const screenOptions = ({ route }) => {
+  const iconName = tabIcon[route.name];
+  return {
+    tabBarIcon: ({ size, color }) => (
+      <Ionicons name={iconName} size={size} color={color} />
+    ),
+  };
+};
+
 const Settings = () => (
   <SafeAreaView style={styles.container}>
     <SettingScreen />
@@ -41,22 +56,7 @@ export default function App() {
     <>
       <NavigationContainer>
         <Tab.Navigator
-          screenOptions={({ route }) => ({
-            // eslint-disable-next-line react/no-unstable-nested-components
-            tabBarIcon: ({ color, size }) => {
-              let iconName;
-              if (route.name === "Restaurants") {
-                iconName = "md-restaurant";
-              } else if (route.name === "Settings") {
-                iconName = "md-settings";
-              } else if (route.name === "Map") {
-                iconName = "md-map";
-              }
-
-              // You can return any component that you like here!
-              return <Ionicons name={iconName} size={size} color={color} />;
-            },
-          })}
+          screenOptions={screenOptions}
           tabBarOptions={{
             tabBarActiveTintColor: "tomato",
             tabBarInactiveTintColor: "gray",

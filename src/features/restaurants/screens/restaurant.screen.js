@@ -8,6 +8,7 @@ import {
   FlatList,
 } from "react-native";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
+import { Search } from "../components/search";
 import { RestaurantInfoCard } from "../components/restaurant-info-card";
 import { RestaurantsContext } from "../../services/restaurants/restaurants.context";
 
@@ -25,9 +26,7 @@ export const RestaurantScreen = () => {
           />
         </View>
       )}
-      <View style={styles.search}>
-        <Searchbar />
-      </View>
+      <Search />
 
       <FlatList
         data={restaurants}

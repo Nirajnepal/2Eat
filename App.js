@@ -12,6 +12,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import SettingScreen from "./src/features/restaurants/screens/restaurant.settings";
 import { Ionicons } from "@expo/vector-icons";
 import { RestaurantsContextProvider } from "./src/features/services/restaurants/restaurants.context";
+import { LocationContextProvider } from "./src/features/services/location/location.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -63,16 +64,18 @@ export default function App() {
   }
   return (
     <>
-      <RestaurantsContextProvider>
-        <NavigationContainer>
-          <Tab.Navigator screenOptions={screenOptions}>
-            <Tab.Screen name="Restaurants" component={RestaurantScreen} />
-            <Tab.Screen name="Map" component={Map} />
-            <Tab.Screen name="Settings" component={Settings} />
-          </Tab.Navigator>
-        </NavigationContainer>
-        <ExpoStatusBar style="auto" />
-      </RestaurantsContextProvider>
+      <LocationContextProvider>
+        <RestaurantsContextProvider>
+          <NavigationContainer>
+            <Tab.Navigator screenOptions={screenOptions}>
+              <Tab.Screen name="Restaurants" component={RestaurantScreen} />
+              <Tab.Screen name="Map" component={Map} />
+              <Tab.Screen name="Settings" component={Settings} />
+            </Tab.Navigator>
+          </NavigationContainer>
+          <ExpoStatusBar style="auto" />
+        </RestaurantsContextProvider>
+      </LocationContextProvider>
     </>
   );
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Searchbar } from "react-native-paper";
 import {
   StatusBar,
@@ -7,38 +7,36 @@ import {
   View,
   FlatList,
 } from "react-native";
+import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { RestaurantInfoCard } from "../components/restaurant-info-card";
+import { RestaurantsContext } from "../../services/restaurants/restaurants.context";
 
 export const RestaurantScreen = () => {
+  const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   return (
     <SafeAreaView style={styles.container}>
+      {isLoading && (
+        <View style={{ position: "absolute", top: "50%", left: "50%" }}>
+          <ActivityIndicator
+            size={50}
+            animating={true}
+            color={MD2Colors.blue}
+            style={{ marginLeft: -25 }}
+          />
+        </View>
+      )}
       <View style={styles.search}>
         <Searchbar />
       </View>
 
       <FlatList
-        data={[
-          { name: 1, key: "1" },
-          { name: 2, key: "2" },
-          { name: 3, key: "3" },
-          { name: 4, key: "4" },
-          { name: 5, key: "5" },
-          { name: 6, key: "6" },
-          { name: 7, key: "7" },
-          { name: 8, key: "8" },
-          { name: 9, key: "9" },
-          { name: 10, key: "10" },
-          { name: 11, key: "11" },
-          { name: 12, key: "12" },
-          { name: 13, key: "13" },
-          { name: 14, key: "14" },
-        ]}
+        data={restaurants}
         renderItem={({ item }) => (
-          <View style={styles.listItem} key={item.key}>
-            <RestaurantInfoCard />
+          <View style={styles.listItem} key={item.userRatingsTotal}>
+            <RestaurantInfoCard restaurant={item} />
           </View>
         )}
-        keyExtractor={(item) => item.key}
+        keyExtractor={(item) => item.name}
         contentContainerStyle={{ padding: 16 }}
       />
     </SafeAreaView>

@@ -34,7 +34,7 @@ export const RestaurantScreen = ({ navigation }) => {
         renderItem={({ item }) => (
           <Pressable
             onPress={() =>
-              navigation.navigate("RestaurantDetail", {
+              navigation.navigate("SingleRestaurantDetail", {
                 restaurant: item,
               })
             }

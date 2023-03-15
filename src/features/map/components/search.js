@@ -11,10 +11,12 @@ export const Search = () => {
   useEffect(() => {
     setSearchKeyword(keyword);
   }, [keyword]);
+
   return (
     <View style={styles.SearchContainer}>
       <Searchbar
         placeholder="Search for a location"
+        icon="map"
         value={searchKeyword}
         onSubmitEditing={() => {
           search(searchKeyword);
@@ -30,5 +32,9 @@ export const Search = () => {
 const styles = StyleSheet.create({
   SearchContainer: {
     padding: 16,
+    position: "absolute",
+    zIndex: 999,
+    top: 40,
+    width: "100%",
   },
 });

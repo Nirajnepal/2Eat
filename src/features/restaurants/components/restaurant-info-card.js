@@ -2,6 +2,7 @@ import React from "react";
 import { Text, StyleSheet, View, Image } from "react-native";
 import { Card } from "react-native-paper";
 import { SvgXml } from "react-native-svg";
+import { Favourite } from "../../../components/favourites/favourites";
 import star from "../../../../assets/star";
 import open from "../../../../assets/open";
 
@@ -21,7 +22,14 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 
   return (
     <Card elevation={5} style={styles.card}>
-      <Card.Cover key={name} style={styles.cover} source={{ uri: photos[0] }} />
+      <View>
+        <Favourite restaurant={restaurant} />
+        <Card.Cover
+          key={name}
+          style={styles.cover}
+          source={{ uri: photos[0] }}
+        />
+      </View>
       <View style={styles.info}>
         <Text style={styles.title}>{name}</Text>
         <View style={styles.restaurantInfo}>

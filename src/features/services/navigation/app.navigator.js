@@ -2,7 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { Text, SafeAreaView, StyleSheet, StatusBar } from "react-native";
+import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import SettingScreen from "../../restaurants/screens/restaurant.settings";
 import { RestaurantsNavigator } from "./restaurant.navigator";
 import { MapScreen } from "../../map/screens/map.screen";

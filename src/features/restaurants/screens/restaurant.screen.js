@@ -29,6 +29,7 @@ export const RestaurantScreen = ({ navigation }) => {
             animating={true}
             color={MD2Colors.blue}
             style={{ marginLeft: -25 }}
+            testID="loading-indicator"
           />
         </View>
       )}
@@ -44,21 +45,27 @@ export const RestaurantScreen = ({ navigation }) => {
       )}
       <FlatList
         data={restaurants}
-        renderItem={({ item }) => (
+        renderItem={({ item, index }) => (
           <Pressable
             onPress={() =>
               navigation.navigate("SingleRestaurantDetail", {
                 restaurant: item,
               })
             }
+            testID="restaurant-pressable"
           >
-            <View style={styles.listItem} key={item.userRatingsTotal}>
+            <View
+              style={styles.listItem}
+              key={item.userRatingsTotal}
+              testID={`restaurant-list-${index}`}
+            >
               <RestaurantInfoCard restaurant={item} />
             </View>
           </Pressable>
         )}
         keyExtractor={(item) => item.name}
         contentContainerStyle={{ padding: 16 }}
+        testID="restaurant-list"
       />
     </SafeAreaView>
   );

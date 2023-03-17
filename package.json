@@ -6,7 +6,15 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "test": "jest"
+  },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": ["./src/__mocks__/setup.js"],
+    "transformIgnorePatterns": [
+      "node_modules/(?!((jest-)?react-native|@react-native(-community)?)|expo(nent)?|@expo(nent)?/.*|@expo-google-fonts/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|react-native-svg)"
+    ]
   },
   "dependencies": {
     "@expo-google-fonts/lato": "^0.2.2",
@@ -22,6 +30,8 @@
     "expo-font": "~11.0.1",
     "expo-status-bar": "~1.4.2",
     "firebase": "^9.18.0",
+    "jest": "^26.6.3",
+    "jest-expo": "^48.0.2",
     "prettier": "^2.8.4",
     "react": "18.1.0",
     "react-native": "0.70.5",
@@ -33,7 +43,9 @@
     "react-native-webview": "11.23.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.9"
+    "@babel/core": "^7.12.9",
+    "@testing-library/react-native": "^12.0.0",
+    "react-test-renderer": "^18.2.0"
   },
   "private": true
 }

@@ -39,25 +39,23 @@ const Settings = () => (
 );
 
 export const AppNavigator = () => (
-  <NavigationContainer headerShown="none">
-    <Tab.Navigator screenOptions={screenOptions}>
-      <Tab.Screen
-        name="Restaurants"
-        component={RestaurantsNavigator}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Map"
-        component={MapScreen}
-        options={{ headerShown: false }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={Settings}
-        options={{ headerShown: false }}
-      />
-    </Tab.Navigator>
-  </NavigationContainer>
+  <Tab.Navigator screenOptions={screenOptions}>
+    <Tab.Screen
+      name="Restaurants"
+      component={RestaurantsNavigator}
+      options={{ headerShown: false }}
+    />
+    <Tab.Screen
+      name="Map"
+      component={MapScreen}
+      options={{ headerShown: false }}
+    />
+    <Tab.Screen
+      name="Settings"
+      component={Settings}
+      options={{ headerShown: false }}
+    />
+  </Tab.Navigator>
 );
 
 const styles = StyleSheet.create({

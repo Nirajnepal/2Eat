@@ -10,9 +10,9 @@ import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 import { RestaurantsContextProvider } from "./src/features/services/restaurants/restaurants.context";
 import { LocationContextProvider } from "./src/features/services/location/location.context";
 import { FavouritesContextProvider } from "./src/features/services/favourites/favourites.context";
+import { AuthenticationContextProvider } from "./src/features/services/authentication/authentication.context";
 import { Navigation } from "./src/features/services/navigation/index";
 import firebase, { initializeApp } from "firebase/app";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAEBJiJDudZIhLXtHMoHErDxRQD4sJq42Q",
@@ -24,23 +24,8 @@ const firebaseConfig = {
 };
 
 initializeApp(firebaseConfig);
-const auth = getAuth();
 
 export default function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      signInWithEmailAndPassword(auth, "test@test.com", "test123")
-        .then((user) => {
-          console.log(user);
-          setIsAuthenticated(true);
-        })
-        .catch((e) => {
-          console.log(e);
-        });
-    }, 2000);
-  }, []);
-
   const [oswaldLoaded] = useOswald({
     Oswald_400Regular,
   });
@@ -54,14 +39,16 @@ export default function App() {
   }
   return (
     <>
-      <FavouritesContextProvider>
-        <LocationContextProvider>
-          <RestaurantsContextProvider>
-            <Navigation />
-            <ExpoStatusBar style="auto" />
-          </RestaurantsContextProvider>
-        </LocationContextProvider>
-      </FavouritesContextProvider>
+      <AuthenticationContextProvider>
+        <FavouritesContextProvider>
+          <LocationContextProvider>
+            <RestaurantsContextProvider>
+              <Navigation />
+              <ExpoStatusBar style="auto" />
+            </RestaurantsContextProvider>
+          </LocationContextProvider>
+        </FavouritesContextProvider>
+      </AuthenticationContextProvider>
     </>
   );
 }

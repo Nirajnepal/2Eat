@@ -52,6 +52,7 @@ export const AuthenticationContextProvider = ({ children }) => {
       .catch((e) => {
         setIsLoading(false);
         setError(e.toString());
+        console.log(e);
       });
   };
 

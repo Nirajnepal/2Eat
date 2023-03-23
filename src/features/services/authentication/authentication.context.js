@@ -34,7 +34,28 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e.toString());
+        let errorCode = e.code;
+        let errorMessage = "";
+        switch (errorCode) {
+          case "auth/invalid-email":
+            errorMessage = "Invalid email address";
+            break;
+          case "auth/wrong-password":
+            errorMessage = "Incorrect password";
+            break;
+          case "auth/user-not-found":
+            errorMessage = "User not found";
+            break;
+          case "auth/too-many-requests":
+            errorMessage =
+              "Too many unsuccessful login attempts. Please try again later.";
+            break;
+          default:
+            errorMessage =
+              "An error occurred while logging in. Please try again later.";
+        }
+        setError(errorMessage);
+        // console.log(error);
       });
   };
 
@@ -51,7 +72,21 @@ export const AuthenticationContextProvider = ({ children }) => {
       })
       .catch((e) => {
         setIsLoading(false);
-        setError(e.toString());
+        let errorCode = e.code;
+        let errorMessage = "";
+        switch (errorCode) {
+          case "auth/invalid-email":
+            errorMessage = "Invalid email address";
+            break;
+          case "auth/weak-password":
+            errorMessage = "Password should be at least 6 characters";
+            break;
+          // Add more cases for other error codes if needed
+          default:
+            errorMessage =
+              "An error occurred while registering. Please try again later.";
+        }
+        setError(errorMessage);
         console.log(e);
       });
   };
@@ -61,6 +96,10 @@ export const AuthenticationContextProvider = ({ children }) => {
       setUser(null);
       setError(null);
     });
+  };
+
+  const clearError = () => {
+    setError(null);
   };
 
   return (
@@ -73,6 +112,7 @@ export const AuthenticationContextProvider = ({ children }) => {
         onLogin,
         onRegister,
         onLogout,
+        clearError,
       }}
     >
       {children}

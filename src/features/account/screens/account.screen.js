@@ -15,6 +15,9 @@ export const AccountScreen = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <View style={styles.imageBackgroundOverlay} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.mainTitle}>2Eat</Text>
+        </View>
         <View style={styles.accountContainer}>
           <Button
             icon="lock-open-outline"
@@ -59,15 +62,25 @@ const styles = StyleSheet.create({
     height: "100%",
     backgroundColor: "rgba(255,255,255,0.2)",
   },
+  titleContainer: {
+    marginTop: "30%",
+    alignItems: "center",
+  },
+  mainTitle: {
+    fontSize: 40,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
   accountContainer: {
     backgroundColor: "rgba(255,255,255,0.6)",
     padding: 10,
-    margin: "75%",
+    marginTop: "25%",
     width: "80%",
+    height: "40%",
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
-    flex: 1,
   },
   spacer: {
     marginTop: 5,

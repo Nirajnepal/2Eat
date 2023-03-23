@@ -14,11 +14,14 @@ const image = require("../../../../assets/home.jpg");
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error } = useContext(AuthenticationContext);
+  const { onLogin, error, clearError } = useContext(AuthenticationContext);
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <View style={styles.imageBackgroundOverlay} />
+        <View style={styles.titleContainer}>
+          <Text style={styles.mainTitle}>2Eat</Text>
+        </View>
         <View style={styles.accountContainer}>
           <TextInput
             label="E-mail"
@@ -26,7 +29,10 @@ export const LoginScreen = ({ navigation }) => {
             textContentType="emailAddress"
             keyboardType="email-address"
             autoCapitalize="none"
-            onChangeText={(u) => setEmail(u)}
+            onChangeText={(u) => {
+              setEmail(u);
+              clearError();
+            }}
             style={styles.textInputForm}
           />
           <View style={styles.spacer}>
@@ -37,13 +43,16 @@ export const LoginScreen = ({ navigation }) => {
               secureTextEntry
               autoCapitalize="none"
               secure
-              onChangeText={(p) => setPassword(p)}
+              onChangeText={(p) => {
+                setPassword(p);
+                clearError();
+              }}
               style={styles.textInputForm}
             />
           </View>
           {error && (
-            <View size="large">
-              <Text variant="error">{error}</Text>
+            <View style={styles.errorContainer}>
+              <Text style={styles.errorText}>{error}</Text>
             </View>
           )}
           <View style={styles.spacer}>
@@ -57,6 +66,11 @@ export const LoginScreen = ({ navigation }) => {
               Login
             </Button>
           </View>
+        </View>
+        <View style={styles.backSpacer}>
+          <Button mode="contained" onPress={() => navigation.goBack()}>
+            Back
+          </Button>
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -81,18 +95,33 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255,255,255,0.2)",
     zIndex: 0,
   },
+  titleContainer: {
+    marginTop: "30%",
+    alignItems: "center",
+  },
+  mainTitle: {
+    fontSize: 40,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+  },
   accountContainer: {
     backgroundColor: "rgba(255,255,255,0.6)",
     padding: 10,
-    margin: "60%",
+    marginTop: "25%",
     width: "80%",
-    height: "50%",
+    height: "40%",
     alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
   },
   spacer: {
     marginTop: 20,
+  },
+  backSpacer: {
+    marginTop: 40,
+    width: "30%",
+    alignSelf: "center",
   },
   button: {
     backgroundColor: "#696AC3",
@@ -102,5 +131,15 @@ const styles = StyleSheet.create({
   },
   textInputForm: {
     width: 300,
+  },
+  errorContainer: {
+    maxWidth: 300,
+    marginTop: 8,
+    marginBottom: 8,
+    alignItems: "center",
+    alignSelf: "center",
+  },
+  errorText: {
+    color: "#D0421B",
   },
 });

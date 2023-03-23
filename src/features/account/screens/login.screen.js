@@ -29,6 +29,7 @@ export const LoginScreen = ({ navigation }) => {
             textContentType="emailAddress"
             keyboardType="email-address"
             autoCapitalize="none"
+            accessibilityLabel="E-mail"
             onChangeText={(u) => {
               setEmail(u);
               clearError();
@@ -43,6 +44,7 @@ export const LoginScreen = ({ navigation }) => {
               secureTextEntry
               autoCapitalize="none"
               secure
+              accessibilityLabel="Password"
               onChangeText={(p) => {
                 setPassword(p);
                 clearError();

@@ -30,6 +30,7 @@ export const RegisterScreen = ({ navigation }) => {
             textContentType="emailAddress"
             keyboardType="email-address"
             autoCapitalize="none"
+            accessibilityLabel="E-mail"
             onChangeText={(u) => {
               setEmail(u);
               clearError();
@@ -44,6 +45,7 @@ export const RegisterScreen = ({ navigation }) => {
               secureTextEntry
               autoCapitalize="none"
               secure
+              accessibilityLabel="Password"
               onChangeText={(p) => {
                 setPassword(p);
                 clearError();
@@ -59,6 +61,7 @@ export const RegisterScreen = ({ navigation }) => {
               secureTextEntry
               autoCapitalize="none"
               secure
+              accessibilityLabel="Repeat Password"
               onChangeText={(p) => {
                 setRepeatedPassword(p);
                 clearError();

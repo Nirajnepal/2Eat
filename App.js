@@ -40,14 +40,8 @@ export default function App() {
   return (
     <>
       <AuthenticationContextProvider>
-        <FavouritesContextProvider>
-          <LocationContextProvider>
-            <RestaurantsContextProvider>
-              <Navigation />
-              <ExpoStatusBar style="auto" />
-            </RestaurantsContextProvider>
-          </LocationContextProvider>
-        </FavouritesContextProvider>
+        <Navigation />
+        <ExpoStatusBar style="auto" />
       </AuthenticationContextProvider>
     </>
   );

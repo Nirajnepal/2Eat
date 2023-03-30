@@ -5,6 +5,9 @@ import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
 import SettingScreen from "../../restaurants/screens/restaurant.settings";
 import { RestaurantsNavigator } from "./restaurant.navigator";
 import { MapScreen } from "../../map/screens/map.screen";
+import { FavouritesContextProvider } from "../favourites/favourites.context";
+import { RestaurantsContextProvider } from "../restaurants/restaurants.context";
+import { LocationContextProvider } from "../location/location.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,23 +41,29 @@ const Settings = () => (
 );
 
 export const AppNavigator = () => (
-  <Tab.Navigator screenOptions={screenOptions}>
-    <Tab.Screen
-      name="Restaurants"
-      component={RestaurantsNavigator}
-      options={{ headerShown: false }}
-    />
-    <Tab.Screen
-      name="Map"
-      component={MapScreen}
-      options={{ headerShown: false }}
-    />
-    <Tab.Screen
-      name="Settings"
-      component={Settings}
-      options={{ headerShown: false }}
-    />
-  </Tab.Navigator>
+  <FavouritesContextProvider>
+    <LocationContextProvider>
+      <RestaurantsContextProvider>
+        <Tab.Navigator screenOptions={screenOptions}>
+          <Tab.Screen
+            name="Restaurants"
+            component={RestaurantsNavigator}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ headerShown: false }}
+          />
+          <Tab.Screen
+            name="Settings"
+            component={Settings}
+            options={{ headerShown: false }}
+          />
+        </Tab.Navigator>
+      </RestaurantsContextProvider>
+    </LocationContextProvider>
+  </FavouritesContextProvider>
 );
 
 const styles = StyleSheet.create({

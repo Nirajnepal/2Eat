@@ -6,7 +6,12 @@ import {
   SafeAreaView,
   ImageBackground,
 } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import {
+  Button,
+  TextInput,
+  ActivityIndicator,
+  MD2Colors,
+} from "react-native-paper";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 const image = require("../../../../assets/home.jpg");
@@ -14,7 +19,9 @@ const image = require("../../../../assets/home.jpg");
 export const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { onLogin, error, clearError } = useContext(AuthenticationContext);
+  const { onLogin, error, clearError, isLoading } = useContext(
+    AuthenticationContext
+  );
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -58,15 +65,19 @@ export const LoginScreen = ({ navigation }) => {
             </View>
           )}
           <View style={styles.spacer}>
-            <Button
-              icon="lock-open-outline"
-              mode="contained"
-              title="Login"
-              style={styles.button}
-              onPress={() => onLogin(email, password)}
-            >
-              Login
-            </Button>
+            {!isLoading ? (
+              <Button
+                icon="lock-open-outline"
+                mode="contained"
+                title="Login"
+                style={styles.button}
+                onPress={() => onLogin(email, password)}
+              >
+                Login
+              </Button>
+            ) : (
+              <ActivityIndicator animating={true} color={MD2Colors.blue300} />
+            )}
           </View>
         </View>
         <View style={styles.backSpacer}>

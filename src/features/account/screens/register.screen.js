@@ -6,7 +6,12 @@ import {
   SafeAreaView,
   ImageBackground,
 } from "react-native";
-import { Button, TextInput } from "react-native-paper";
+import {
+  Button,
+  TextInput,
+  ActivityIndicator,
+  Colors,
+} from "react-native-paper";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
 const image = require("../../../../assets/home.jpg");
@@ -15,7 +20,9 @@ export const RegisterScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatedPassword, setRepeatedPassword] = useState("");
-  const { onRegister, error, clearError } = useContext(AuthenticationContext);
+  const { onRegister, error, clearError, isLoading } = useContext(
+    AuthenticationContext
+  );
   return (
     <SafeAreaView style={styles.container}>
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
@@ -75,15 +82,19 @@ export const RegisterScreen = ({ navigation }) => {
             </View>
           )}
           <View style={styles.spacer}>
-            <Button
-              icon="email"
-              mode="contained"
-              title="Register"
-              style={styles.button}
-              onPress={() => onRegister(email, password, repeatedPassword)}
-            >
-              Register
-            </Button>
+            {!isLoading ? (
+              <Button
+                icon="email"
+                mode="contained"
+                title="Register"
+                style={styles.button}
+                onPress={() => onRegister(email, password, repeatedPassword)}
+              >
+                Register
+              </Button>
+            ) : (
+              <ActivityIndicator animating={true} color={Colors.blue300} />
+            )}
           </View>
         </View>
         <View style={styles.backSpacer}>

@@ -1,9 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { SafeAreaView, StyleSheet, StatusBar } from "react-native";
-import SettingScreen from "../../restaurants/screens/restaurant.settings";
 import { RestaurantsNavigator } from "./restaurant.navigator";
+import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from "../../map/screens/map.screen";
 import { FavouritesContextProvider } from "../favourites/favourites.context";
 import { RestaurantsContextProvider } from "../restaurants/restaurants.context";
@@ -34,12 +33,6 @@ const screenOptions = ({ route }) => {
   };
 };
 
-const Settings = () => (
-  <SafeAreaView style={styles.container}>
-    <SettingScreen />
-  </SafeAreaView>
-);
-
 export const AppNavigator = () => (
   <FavouritesContextProvider>
     <LocationContextProvider>
@@ -57,7 +50,7 @@ export const AppNavigator = () => (
           />
           <Tab.Screen
             name="Settings"
-            component={Settings}
+            component={SettingsNavigator}
             options={{ headerShown: false }}
           />
         </Tab.Navigator>
@@ -66,9 +59,9 @@ export const AppNavigator = () => (
   </FavouritesContextProvider>
 );
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    marginTop: StatusBar.currentHeight,
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     marginTop: StatusBar.currentHeight,
+//   },
+// });

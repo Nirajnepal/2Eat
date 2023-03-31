@@ -4,15 +4,11 @@ import {
   useFonts as useOswald,
   Oswald_400Regular,
 } from "@expo-google-fonts/oswald";
-import { StyleSheet, StatusBar } from "react-native";
 import { useFonts as useLato, Lato_400Regular } from "@expo-google-fonts/lato";
 
-import { RestaurantsContextProvider } from "./src/features/services/restaurants/restaurants.context";
-import { LocationContextProvider } from "./src/features/services/location/location.context";
-import { FavouritesContextProvider } from "./src/features/services/favourites/favourites.context";
 import { AuthenticationContextProvider } from "./src/features/services/authentication/authentication.context";
 import { Navigation } from "./src/features/services/navigation/index";
-import firebase, { initializeApp } from "firebase/app";
+import { initializeApp } from "firebase/app";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAEBJiJDudZIhLXtHMoHErDxRQD4sJq42Q",

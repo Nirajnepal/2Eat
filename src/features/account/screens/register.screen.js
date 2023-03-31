@@ -10,7 +10,7 @@ import {
   Button,
   TextInput,
   ActivityIndicator,
-  Colors,
+  MD2Colors,
 } from "react-native-paper";
 import { AuthenticationContext } from "../../services/authentication/authentication.context";
 
@@ -93,7 +93,7 @@ export const RegisterScreen = ({ navigation }) => {
                 Register
               </Button>
             ) : (
-              <ActivityIndicator animating={true} color={Colors.blue300} />
+              <ActivityIndicator animating={true} color={MD2Colors.blue300} />
             )}
           </View>
         </View>

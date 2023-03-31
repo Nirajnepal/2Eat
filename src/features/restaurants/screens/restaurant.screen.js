@@ -12,7 +12,6 @@ import { Search } from "../components/search";
 import { RestaurantInfoCard } from "../components/restaurant-info-card";
 import { RestaurantsContext } from "../../services/restaurants/restaurants.context";
 import { FavouritesContext } from "../../services/favourites/favourites.context";
-import { RestaurantDetail } from "./restaurant-details.screen";
 import { FavouritesBar } from "../../../components/favourites/favourites-bar";
 
 export const RestaurantScreen = ({ navigation }) => {

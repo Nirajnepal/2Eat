@@ -19,16 +19,13 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
     isClosedTemporarily,
   } = restaurant;
   const ratingArray = Array.from(new Array(Math.floor(rating)));
+  const statusTextColor = isClosedTemporarily ? "#FF3D00" : "#4CAF50";
 
   return (
     <Card elevation={5} style={styles.card}>
       <View>
         <Favourite restaurant={restaurant} />
-        <Card.Cover
-          key={name}
-          style={styles.cover}
-          source={{ uri: photos[0] }}
-        />
+        <Card.Cover key={name} source={{ uri: photos[0] }} />
       </View>
       <View style={styles.info}>
         <Text style={styles.title}>{name}</Text>
@@ -46,7 +43,7 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
           <View style={styles.restaurantInfoStatus}>
             {isClosedTemporarily && (
               // eslint-disable-next-line react-native/no-inline-styles
-              <Text variant="label" style={{ color: "red" }}>
+              <Text variant="label" style={{ color: statusTextColor }}>
                 CLOSED TEMPORARILY
               </Text>
             )}
@@ -64,34 +61,80 @@ export const RestaurantInfoCard = ({ restaurant = {} }) => {
 };
 
 const styles = StyleSheet.create({
-  card: { backgroundColor: "white" },
+  card: {
+    backgroundColor: "#E1F5FE",
+    // borderRadius: 10,
+    marginVertical: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+    elevation: 5,
+  },
   cover: {
-    padding: 20,
-    backgroundColor: "white",
+    overflow: "hidden",
+    borderRadius: 0,
   },
   info: {
+    backgroundColor: "#E1F5FE",
+    // borderRadius: 10,
     padding: 16,
   },
   title: {
     fontFamily: "Lato_400Regular",
-    fontSize: 20,
-  },
-  address: {
-    fontFamily: "Oswald_400Regular",
-    fontSize: 12,
-  },
-  rating: {
-    flexDirection: "row",
-    paddingTop: 8,
-    paddingBottom: 8,
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 10,
   },
   restaurantInfo: {
     flexDirection: "row",
     alignItems: "center",
+    marginBottom: 10,
+  },
+  rating: {
+    backgroundColor: "#FDB813",
+    borderRadius: 20,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    marginRight: 10,
+    borderWidth: 1,
+    borderColor: "#FDB813",
+  },
+  ratingText: {
+    fontFamily: "Lato_400Regular",
+    fontSize: 12,
+    fontWeight: "bold",
+    color: "#FFFFFF",
   },
   restaurantInfoStatus: {
     flex: 1,
     flexDirection: "row",
     justifyContent: "flex-end",
+    alignItems: "center",
+  },
+  statusText: {
+    fontFamily: "Lato_400Regular",
+    fontSize: 12,
+    fontWeight: "bold",
+    marginRight: 10,
+  },
+  icon: {
+    width: 25,
+    height: 25,
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: "#FFFFFF",
+    marginRight: 10,
+  },
+  address: {
+    fontFamily: "Oswald_400Regular",
+    fontSize: 12,
+    color: "#757575",
   },
 });

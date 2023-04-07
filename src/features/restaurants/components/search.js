@@ -24,13 +24,28 @@ export const Search = ({ isFavouritesToggled, onFavouritesToggle }) => {
         onChangeText={(text) => {
           setSearchKeyword(text);
         }}
+        style={styles.SearchBar}
       />
     </View>
   );
 };
 
+// const styles = StyleSheet.create({
+//   SearchContainer: {
+//     padding: 16,
+//   },
+// });
+
 const styles = StyleSheet.create({
   SearchContainer: {
     padding: 16,
+    backgroundColor: "#f2f2f2",
+    borderBottomColor: "#bbb",
+    // borderBottomWidth: StyleSheet.hairlineWidth,
+  },
+  SearchBar: {
+    // borderRadius: 10,
+    backgroundColor: "#fff",
+    marginHorizontal: 16,
   },
 });

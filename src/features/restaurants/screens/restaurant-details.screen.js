@@ -85,7 +85,7 @@ export const RestaurantDetailScreen = ({ navigation, route }) => {
           icon="cash"
           mode="contained"
           onPress={() => {
-            addToCart({ item: "special", price: 999 }, restaurant);
+            addToCart({ item: "Special", price: 999 }, restaurant);
             navigation.navigate("Checkout");
           }}
           style={styles.orderButton}

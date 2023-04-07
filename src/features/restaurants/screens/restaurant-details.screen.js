@@ -1,14 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { RestaurantInfoCard } from "../components/restaurant-info-card";
-import { SafeAreaView, StyleSheet, StatusBar, ScrollView } from "react-native";
+import {
+  SafeAreaView,
+  StyleSheet,
+  StatusBar,
+  ScrollView,
+  View,
+} from "react-native";
 import { List } from "react-native-paper";
+import { CartContext } from "../../services/cart/cart.context";
+import { Button } from "react-native-paper";
 
-export const RestaurantDetailScreen = ({ route }) => {
+export const RestaurantDetailScreen = ({ navigation, route }) => {
   const [breakfastExpanded, setBreakfastExpanded] = useState(false);
   const [lunchExpanded, setLunchExpanded] = useState(false);
   const [dinnerExpanded, setDinnerExpanded] = useState(false);
   const [drinksExpanded, setDrinksExpanded] = useState(false);
   const { restaurant } = route.params;
+  const { addToCart } = useContext(CartContext);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -71,6 +80,19 @@ export const RestaurantDetailScreen = ({ route }) => {
           <List.Item title="Fanta" />
         </List.Accordion>
       </ScrollView>
+      <View style={styles.spacer}>
+        <Button
+          icon="cash"
+          mode="contained"
+          onPress={() => {
+            addToCart({ item: "special", price: 999 }, restaurant);
+            navigation.navigate("Checkout");
+          }}
+          style={styles.orderButton}
+        >
+          Order Special only for $9.99
+        </Button>
+      </View>
     </SafeAreaView>
   );
 };
@@ -92,5 +114,14 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 18 /* increase the font size of the accordion titles */,
+  },
+  spacer: {
+    marginBottom: 20,
+  },
+  orderButton: {
+    backgroundColor: "#696AC3",
+    padding: 2,
+    color: "white",
+    borderRadius: 0,
   },
 });

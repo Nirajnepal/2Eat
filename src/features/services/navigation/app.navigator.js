@@ -8,6 +8,7 @@ import { CheckoutScreen } from "../../checkout/screens/checkout.screen";
 import { FavouritesContextProvider } from "../favourites/favourites.context";
 import { RestaurantsContextProvider } from "../restaurants/restaurants.context";
 import { LocationContextProvider } from "../location/location.context";
+import { CartContextProvider } from "../cart/cart.context";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,28 +40,30 @@ export const AppNavigator = () => (
   <FavouritesContextProvider>
     <LocationContextProvider>
       <RestaurantsContextProvider>
-        <Tab.Navigator screenOptions={screenOptions}>
-          <Tab.Screen
-            name="Restaurants"
-            component={RestaurantsNavigator}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="Checkout"
-            component={CheckoutScreen}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="Map"
-            component={MapScreen}
-            options={{ headerShown: false }}
-          />
-          <Tab.Screen
-            name="Settings"
-            component={SettingsNavigator}
-            options={{ headerShown: false }}
-          />
-        </Tab.Navigator>
+        <CartContextProvider>
+          <Tab.Navigator screenOptions={screenOptions}>
+            <Tab.Screen
+              name="Restaurants"
+              component={RestaurantsNavigator}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Checkout"
+              component={CheckoutScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Map"
+              component={MapScreen}
+              options={{ headerShown: false }}
+            />
+            <Tab.Screen
+              name="Settings"
+              component={SettingsNavigator}
+              options={{ headerShown: false }}
+            />
+          </Tab.Navigator>
+        </CartContextProvider>
       </RestaurantsContextProvider>
     </LocationContextProvider>
   </FavouritesContextProvider>

@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import { CreditCardInput } from "../components/credit-card";
 import { CartContext } from "../../services/cart/cart.context";
-import { Avatar, List, TextInput, Button } from "react-native-paper";
+import {
+  Avatar,
+  List,
+  TextInput,
+  Button,
+  ActivityIndicator,
+} from "react-native-paper";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card";
 import { payRequest } from "../../services/checkout/checkout.service";
 
@@ -18,13 +24,45 @@ export const CheckoutScreen = () => {
   const { cart, restaurant, sum, clearCart } = useContext(CartContext);
   const [name, setName] = useState("");
   const [card, setCard] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const onPay = () => {
+    setIsLoading(true);
     if (!card || !card.id) {
-      console.log("some error");
+      setIsLoading(false);
+      setError("Error: Card information is missing.");
       return;
     }
-    payRequest(card.id, sum, name);
+    payRequest(card.id, sum, name)
+      .then((result) => {
+        setIsLoading(false);
+        setError(null);
+        setSuccess("Payment was successful.");
+        setTimeout(() => {
+          clearSuccess();
+          clearCart();
+        }, 3000);
+      })
+      .catch((err) => {
+        setIsLoading(false);
+        setError("Error: Payment was unsuccessful.");
+        console.log(err);
+      });
+  };
+
+  const clearError = () => {
+    setError(null);
+  };
+
+  const clearSuccess = () => {
+    setSuccess(null);
+  };
+
+  const onFocus = () => {
+    clearError();
+    clearSuccess();
   };
 
   if (!cart.length || !restaurant) {
@@ -38,6 +76,9 @@ export const CheckoutScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <RestaurantInfoCard restaurant={restaurant} />
+      {isLoading && <ActivityIndicator />}
+      {error && <Text style={styles.errorText}>{error}</Text>}
+      {success && <Text style={styles.successText}>{success}</Text>}
       <ScrollView>
         <View style={styles.spacer}>
           <View style={styles.textSpacer}>
@@ -63,6 +104,7 @@ export const CheckoutScreen = () => {
           onChangeText={(n) => {
             setName(n);
           }}
+          onFocus={onFocus}
           style={styles.customerName}
         />
         {name.length > 0 && (
@@ -70,25 +112,36 @@ export const CheckoutScreen = () => {
             style={styles.creditCardInput}
             name={name}
             onSuccess={setCard}
+            onFocus={onFocus}
           />
         )}
         <View style={styles.smallSpacer} />
         <Button
+          disabled={isLoading}
           icon="cash"
           mode="contained"
-          onPress={onPay}
           style={styles.payButton}
           buttonColor="#4CAF50"
+          onPress={() => {
+            clearError();
+            clearSuccess();
+            onPay();
+          }}
         >
           Pay
         </Button>
         <View style={styles.smallSpacer} />
         <Button
+          disabled={isLoading}
           icon="cart-off"
           mode="contained"
-          onPress={clearCart}
           style={styles.clearCartButton}
           buttonColor="#F44336"
+          onPress={() => {
+            clearError();
+            clearSuccess();
+            clearCart();
+          }}
         >
           Clear Cart
         </Button>
@@ -184,5 +237,17 @@ const styles = StyleSheet.create({
     width: "40%",
     borderRadius: 5,
     alignSelf: "center",
+  },
+  errorText: {
+    color: "red",
+    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10,
+  },
+  successText: {
+    color: "green",
+    textAlign: "center",
+    marginTop: 10,
+    marginBottom: 10,
   },
 });

@@ -1,9 +1,16 @@
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { AuthenticationContextProvider } from "./src/features/services/authentication/authentication.context";
 import { Navigation } from "./src/features/services/navigation/index";
 import { initializeApp } from "firebase/app";
+import { LogBox } from "react-native";
+
+// Ignore warning messages from credit card package
+LogBox.ignoreLogs([
+  "Warning: componentWillReceiveProps has been renamed",
+  "Warning: Failed prop type",
+]);
 
 const firebaseConfig = {
   apiKey: "AIzaSyAEBJiJDudZIhLXtHMoHErDxRQD4sJq42Q",

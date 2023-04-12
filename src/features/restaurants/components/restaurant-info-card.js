@@ -84,7 +84,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   title: {
-    fontFamily: "Lato_400Regular",
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
     borderColor: "#FDB813",
   },
   ratingText: {
-    fontFamily: "Lato_400Regular",
     fontSize: 12,
     fontWeight: "bold",
     color: "#FFFFFF",
@@ -119,7 +117,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   statusText: {
-    fontFamily: "Lato_400Regular",
     fontSize: 12,
     fontWeight: "bold",
     marginRight: 10,
@@ -133,7 +130,6 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   address: {
-    fontFamily: "Oswald_400Regular",
     fontSize: 12,
     color: "#757575",
   },

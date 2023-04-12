@@ -26,7 +26,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: "bold",
     alignItems: "center",
-    fontFamily: "Lato_400Regular",
   },
   imageContainer: {
     width: 120,

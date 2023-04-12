@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 import {
   StatusBar,
@@ -10,11 +10,23 @@ import {
 } from "react-native";
 import { CreditCardInput } from "../components/credit-card";
 import { CartContext } from "../../services/cart/cart.context";
-import { Avatar, List } from "react-native-paper";
+import { Avatar, List, TextInput, Button } from "react-native-paper";
 import { RestaurantInfoCard } from "../../restaurants/components/restaurant-info-card";
+import { payRequest } from "../../services/checkout/checkout.service";
 
 export const CheckoutScreen = () => {
-  const { cart, restaurant, sum } = useContext(CartContext);
+  const { cart, restaurant, sum, clearCart } = useContext(CartContext);
+  const [name, setName] = useState("");
+  const [card, setCard] = useState(null);
+
+  const onPay = () => {
+    if (!card || !card.id) {
+      console.log("some error");
+      return;
+    }
+    payRequest(card.id, sum, name);
+  };
+
   if (!cart.length || !restaurant) {
     return (
       <SafeAreaView style={styles.cartIconContainer}>
@@ -32,9 +44,10 @@ export const CheckoutScreen = () => {
             <Text style={styles.cartText}>Your Order</Text>
           </View>
           <List.Section style={styles.listSection}>
-            {cart.map(({ item, price }) => {
+            {cart.map(({ item, price }, index) => {
               return (
                 <List.Item
+                  key={index}
                   style={styles.listItem}
                   title={`${item} - ${price / 100}`}
                   titleStyle={styles.listItemTitle}
@@ -44,7 +57,41 @@ export const CheckoutScreen = () => {
           </List.Section>
           <Text style={styles.totalText}>Total: {sum / 100}</Text>
         </View>
-        <CreditCardInput />
+        <TextInput
+          label="Name"
+          value={name}
+          onChangeText={(n) => {
+            setName(n);
+          }}
+          style={styles.customerName}
+        />
+        {name.length > 0 && (
+          <CreditCardInput
+            style={styles.creditCardInput}
+            name={name}
+            onSuccess={setCard}
+          />
+        )}
+        <View style={styles.smallSpacer} />
+        <Button
+          icon="cash"
+          mode="contained"
+          onPress={onPay}
+          style={styles.payButton}
+          buttonColor="#4CAF50"
+        >
+          Pay
+        </Button>
+        <View style={styles.smallSpacer} />
+        <Button
+          icon="cart-off"
+          mode="contained"
+          onPress={clearCart}
+          style={styles.clearCartButton}
+          buttonColor="#F44336"
+        >
+          Clear Cart
+        </Button>
       </ScrollView>
     </SafeAreaView>
   );
@@ -58,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   cartText: {
-    marginTop: 10,
+    marginTop: 5,
     fontSize: 20,
     color: "#666666",
   },
@@ -72,13 +119,16 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingBottom: 16,
   },
+  smallSpacer: {
+    height: 6,
+  },
   textSpacer: {
     marginTop: 16,
   },
   orderTitle: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginBottom: 16,
+    marginBottom: 10,
     color: "#333",
   },
   listSection: {
@@ -104,6 +154,35 @@ const styles = StyleSheet.create({
     color: "#333",
   },
   creditCardInput: {
+    input: {
+      fontSize: 16,
+      color: "#333",
+    },
+    label: {
+      fontSize: 14,
+      color: "#777",
+    },
+    inputContainer: {
+      marginHorizontal: 16,
+      marginTop: 10,
+    },
+  },
+  customerName: {
     marginHorizontal: 16,
+  },
+  payButton: {
+    marginHorizontal: 16,
+    marginTop: 20,
+    marginBottom: 10,
+    width: "40%",
+    borderRadius: 5,
+    alignSelf: "center",
+  },
+  clearCartButton: {
+    marginHorizontal: 16,
+    marginBottom: 20,
+    width: "40%",
+    borderRadius: 5,
+    alignSelf: "center",
   },
 });

@@ -1,21 +1,26 @@
-import { mocks, mockImages } from "./mock";
 import camelize from "camelize";
 
 export const restaurantsRequest = (location = "37.7749295,-122.4194155") => {
-  return new Promise((resolve, reject) => {
-    const mock = mocks[location];
-    if (!mock) {
-      reject("not found");
-    }
-    resolve(mock);
-  });
+  return fetch(
+    `http://10.0.2.2:5001/eat-bfbed/us-central1/restaurantsNearby?location=${location}`
+  )
+    .then((res) => {
+      if (!res.ok) {
+        console.log(res);
+        throw new Error(`Network response was not ok: ${res.statusText}`);
+      }
+      return res.json();
+    })
+    .catch((error) => {
+      // console.log(error);
+      console.error(`There was a problem with the fetch operation: ${error}`);
+      throw error;
+    });
 };
 
 export const restaurantsTransform = ({ results = [] }) => {
+  // console.log(results);
   const mappedResults = results.map((restaurant) => {
-    restaurant.photos = restaurant.photos.map((p) => {
-      return mockImages[Math.ceil(Math.random() * (mockImages.length - 1))];
-    });
     return {
       ...restaurant,
       address: restaurant.vicinity,
